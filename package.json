@@ -1,0 +1,29 @@
+{
+  "name": "ponfi-server",
+  "version": "1.0.0",
+  "description": "GDSC Imperial Backend Server for Ponfi",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cybercoder-naj/ponfi-server.git"
+  },
+  "author": "Nishant A Jalan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cybercoder-naj/ponfi-server/issues"
+  },
+  "homepage": "https://github.com/cybercoder-naj/ponfi-server#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
