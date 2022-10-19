@@ -1,6 +1,10 @@
+/* DO NOT TAMPER WITH THIS FILE !!*/
 const mongoose = require('mongoose')
 require('dotenv').config()
 
+/**
+ * This function creates the HTTP Server and connects your server to the local running MongoDB
+ */
 function bootServer() {
   const express = require('express')
   const path = require('path')
@@ -17,6 +21,8 @@ function bootServer() {
 
   app.use(express.static(path.join(__dirname, 'public')))
   app.use(express.urlencoded({ extended: false }))
+
+  app.use('/api', require('./routes/routes'))
 
   app.get('/', (req, res) => res.sendFile('index.html'))
   
