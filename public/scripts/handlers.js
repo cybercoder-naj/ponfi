@@ -1,3 +1,12 @@
+import api from './api.js'
+
+/**
+ * handlers is a JavaScript object that contains all the action functions (or handlers).
+ * When the functions are invoked, they perform a specific task such as modifying class 
+ * names on HTML elements, placing elements after the Drag&Drop, adding and edit new cards.
+ * 
+ * DO NOT TAMPER WITH THIS FUNCTION !!
+ */
 const handlers = {
   cardDragStart(card) {
     card.classList.add("dragging")
@@ -30,20 +39,43 @@ const handlers = {
   },
   addNewCard(container) {
     const newCardMsg = prompt("Please enter the card contents:")
-    container.appendChild(cardBuilder(newCardMsg))
+
+    api.createCard({
+      content: newCardMsg,
+      category: container.dataset.category
+    }).then(cardObj => {
+      const newCard = cardBuilder(cardObj)
+      container.appendChild(newCard)
+    }).catch(alert)   
   },
   editCard(card) {
-    const newMessage = prompt("Enter your new message: ")
-    const pMsg = card.querySelector("p")
-    card.removeChild(pMsg)
-    pMsg.innerText = newMessage
-    card.appendChild(pMsg)
+    const newContent = prompt("Enter your new message: ")
+    
+    api.editCard({
+      _id: card.dataset.id,
+      content: newContent,
+      category: card.parentElement.dataset.category
+    }).then(cardObj => {
+      const pTag = card.querySelector("p")
+      card.removeChild(pTag)
+      pTag.innerText = cardObj.content
+      card.appendChild(pTag)
+    }).catch(alert)
   }
 }
 
-const cardBuilder = (message) => {
+/**
+ * This function builds a new Card element with the required inner tags and contents.
+ * 
+ * DO NOT TAMPER WITH THIS FUNCTION !!
+ * 
+ * @param {string} message the contents of the card
+ * @returns The card element
+ */
+const cardBuilder = ({content, _id}) => {
   const newCard = document.createElement("div")
   newCard.className = "card"
+  newCard.dataset.id = _id
   
   const editImg = document.createElement("img")
   editImg.setAttribute("src", "./assets/edit.png")
@@ -51,7 +83,7 @@ const cardBuilder = (message) => {
   newCard.appendChild(editImg)
   
   const pMsg = document.createElement("p")
-  pMsg.innerText = message
+  pMsg.innerText = content
   newCard.appendChild(pMsg)
 
   newCard.addEventListener("click", () => handlers.editCard(newCard))

@@ -1,5 +1,12 @@
 import handlers from "./handlers.js"
 
+/**
+ * setup() used to configure the website to interact with the user and 
+ * properly integrate features such as Drag&Drop, Edit card details,
+ * and Adding new Card.
+ * 
+ * DO NOT TAMPER WITH THIS FUNCTION !!
+ */
 function setup() {
   const cards = document.querySelectorAll(".card")
   cards.forEach(card => {
@@ -21,6 +28,11 @@ function setup() {
   })
 }
 
+/**
+ * Execute the following statements after the HTML file has loaded successfully.
+ * 
+ * DO NOT TAMPER WITH THIS FUNCTION !!
+ */
 document.addEventListener("DOMContentLoaded", () => {
   setup()
 })
