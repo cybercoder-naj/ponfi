@@ -97,7 +97,11 @@ const cardBuilder = ({content, _id}) => {
   pMsg.innerText = content
   newCard.appendChild(pMsg)
 
-  newCard.addEventListener("click", () => handlers.editCard(newCard))
+  editImg.addEventListener("click", () => handlers.editCard(newCard))
+
+  newCard.setAttribute("draggable", "true")  
+  newCard.addEventListener("dragstart", () => handlers.cardDragStart(newCard))
+  newCard.addEventListener("dragend", () => handlers.cardDragEnd(newCard))
 
   return newCard
 }
