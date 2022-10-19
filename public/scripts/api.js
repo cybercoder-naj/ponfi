@@ -7,7 +7,13 @@ export default {
   },
   async editCard(cardObj) {
     /* Code here */
-    console.log('createCard() called with ', cardObj)
+    console.log('editCard() called with ', cardObj)
+
+    return Promise.resolve(cardObj)
+  },
+  async updateContainer(cardObj) {
+    /* Code here */
+    console.log('updateContainer() called with ', cardObj)
 
     return Promise.resolve(cardObj)
   }

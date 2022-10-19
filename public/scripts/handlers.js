@@ -1,5 +1,7 @@
 import api from './api.js'
 
+let draggedOverContainer = null
+
 /**
  * handlers is a JavaScript object that contains all the action functions (or handlers).
  * When the functions are invoked, they perform a specific task such as modifying class 
@@ -10,12 +12,21 @@ import api from './api.js'
 const handlers = {
   cardDragStart(card) {
     card.classList.add("dragging")
+    draggedOverContainer = card.parentElement
   },
   cardDragEnd(card) {
     card.classList.remove("dragging")
+    api.updateContainer({
+      _id: card.dataset.id,
+      content: card.querySelector('p').innerText,
+      category: draggedOverContainer.dataset.category
+    }).then(cardObj => {
+      draggedOverContainer = null
+    }).catch(alert)
   },
   containerDragOver(e, container) {
     e.preventDefault()
+    draggedOverContainer = container
 
     const getDragAfterElement = (container, y) => {
       const notDraggedCards = [...container.querySelectorAll(".card:not(.dragging)")]
@@ -49,7 +60,7 @@ const handlers = {
     }).catch(alert)   
   },
   editCard(card) {
-    const newContent = prompt("Enter your new message: ")
+    const newContent = prompt("Enter your new message: ", card.querySelector('p').innerText)
     
     api.editCard({
       _id: card.dataset.id,
