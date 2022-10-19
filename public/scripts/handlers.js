@@ -49,10 +49,12 @@ const handlers = {
     }
   },
   addNewCard(container) {
-    const newCardMsg = prompt("Please enter the card contents:")
+    const newCardContent = prompt("Please enter the card contents:")
+    if (newCardContent === null || newCardContent == '')
+      return
 
     api.createCard({
-      content: newCardMsg,
+      content: newCardContent,
       category: container.dataset.category
     }).then(cardObj => {
       const newCard = cardBuilder(cardObj)
@@ -61,6 +63,8 @@ const handlers = {
   },
   editCard(card) {
     const newContent = prompt("Enter your new message: ", card.querySelector('p').innerText)
+    if (newContent === null || newContent == '')
+      return
     
     api.editCard({
       _id: card.dataset.id,
@@ -93,9 +97,9 @@ const cardBuilder = ({content, _id}) => {
   editImg.setAttribute("alt", "edit")
   newCard.appendChild(editImg)
   
-  const pMsg = document.createElement("p")
-  pMsg.innerText = content
-  newCard.appendChild(pMsg)
+  const pTag = document.createElement("p")
+  pTag.innerText = content
+  newCard.appendChild(pTag)
 
   editImg.addEventListener("click", () => handlers.editCard(newCard))
 
