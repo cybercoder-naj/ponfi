@@ -13,7 +13,6 @@ router.get('/cards', async (req, res, next) => {
 })
 
 router.post('/cards', async (req, res, next) => {
-  console.log(req.body)
   const {content, category} = req.body
   if (!content || !category) {
     res.status(401)
@@ -27,8 +26,21 @@ router.post('/cards', async (req, res, next) => {
   }
 })
 
-router.put('/cards/:id', async (req, res) => {
-  // Code here
+router.put('/cards/:id', async (req, res, next) => {
+  const {content, category} = req.body
+  const {id} = req.params
+  if (!(id && content && category)) {
+    res.status(401)
+    return next(new Error("Bad request body"))
+  }
+  try {
+    await Card.findByIdAndUpdate({_id: id}, {content, category})
+    const newCard = await Card.findOne({_id: id})
+
+    return res.json(newCard)
+  } catch (err) {
+    return next(err)
+  }
 })
 
 module.exports = router
