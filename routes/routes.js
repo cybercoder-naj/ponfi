@@ -1,5 +1,4 @@
 const router = require('express').Router()
-const Card = require('../models/Card')
 
 router.get('/', (req, res) => res.send("Working"))
 
