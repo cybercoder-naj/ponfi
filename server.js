@@ -32,7 +32,10 @@ function bootServer() {
 }
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .catch(err => console.error(err))
   .then(() => console.log("Connected to mongoose server"))
   .then(bootServer)
