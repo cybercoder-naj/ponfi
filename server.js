@@ -25,6 +25,10 @@ function bootServer() {
   app.use('/api', require('./routes/routes'))
 
   app.get('/', (req, res) => res.sendFile('index.html'))
+
+  app.use((err, req, res, next) => {
+    res.json({ error: err.message })
+  })
   
   app.listen(process.env.PORT || 3000, () => {
     console.log(`Server has started! Now listening on http://localhost:${process.env.PORT || 3000}`)
