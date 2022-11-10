@@ -15,6 +15,7 @@ router.get('/cards', async (req, res, next) => {
 router.post('/cards', async (req, res, next) => {
   const {content, category} = req.body
   if (!content || !category) {
+    console.log(req.body)
     res.status(401)
     return next(new Error("Bad request body"))
   }

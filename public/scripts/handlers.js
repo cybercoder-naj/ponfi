@@ -16,7 +16,7 @@ const handlers = {
   },
   cardDragEnd(card) {
     card.classList.remove("dragging")
-    api.updateContainer({
+    api.editCard({
       _id: card.dataset.id,
       content: card.querySelector('p').innerText,
       category: draggedOverContainer.dataset.category
