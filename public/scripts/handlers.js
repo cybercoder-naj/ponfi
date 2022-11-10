@@ -16,7 +16,7 @@ const handlers = {
   },
   cardDragEnd(card) {
     card.classList.remove("dragging")
-    api.updateContainer({
+    api.editCard({
       _id: card.dataset.id,
       content: card.querySelector('p').innerText,
       category: draggedOverContainer.dataset.category
@@ -60,6 +60,10 @@ const handlers = {
       const newCard = cardBuilder(cardObj)
       container.appendChild(newCard)
     }).catch(alert)   
+  },
+  addExistingCard(container, card) {
+    const newCard = cardBuilder(card)
+    container.appendChild(newCard)
   },
   editCard(card) {
     const newContent = prompt("Enter your new message: ", card.querySelector('p').innerText)

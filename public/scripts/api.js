@@ -11,10 +11,10 @@ export default {
 
     return Promise.resolve(cardObj)
   },
-  async updateContainer(cardObj) {
+  async getCards() {
     /* Code here */
-    console.log('updateContainer() called with ', cardObj)
+    console.log('getCards() called ')
 
-    return Promise.resolve(cardObj)
+    return Promise.resolve({_id: '1', content: "something", category: "something"})
   }
 }
