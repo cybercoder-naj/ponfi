@@ -16,5 +16,16 @@ export default {
     console.log('updateContainer() called with ', cardObj)
 
     return Promise.resolve(cardObj)
+  },
+  async getCards() {
+    /* Code here */
+    console.log('getCards() called')
+    try {
+      const data = await fetch('/api/cards')
+      const cards = await data.json()
+      return Promise.resolve(cards)
+    } catch (err) {
+      return Promise.reject(err)
+    }
   }
 }

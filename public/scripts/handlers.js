@@ -61,6 +61,10 @@ const handlers = {
       container.appendChild(newCard)
     }).catch(alert)   
   },
+  addExistingCard(container, card) {
+    const newCard = cardBuilder(card)
+    container.appendChild(newCard)
+  },
   editCard(card) {
     const newContent = prompt("Enter your new message: ", card.querySelector('p').innerText)
     if (newContent === null || newContent == '')

@@ -1,4 +1,5 @@
 import handlers from "./handlers.js"
+import api from "./api.js"
 
 /**
  * setup() used to configure the website to interact with the user and 
@@ -8,6 +9,14 @@ import handlers from "./handlers.js"
  * DO NOT TAMPER WITH THIS FUNCTION !!
  */
 function setup() {
+  api.getCards()
+    .then(cards => {
+      cards.forEach(card => {
+        const container = document.querySelector(`[data-category=${card.category}]`)
+        handlers.addExistingCard(container, card)
+      })
+    }).catch(console.error)
+
   const cards = document.querySelectorAll(".card")
   cards.forEach(card => {
     card.setAttribute("draggable", "true")
